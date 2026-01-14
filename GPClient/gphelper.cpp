@@ -1,6 +1,6 @@
 #include <QtCore/QXmlStreamReader>
 #include <QtWidgets/QMessageBox>
-#include <QtWidgets/QDesktopWidget>
+#include <QGuiApplication>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QWidget>
 #include <QtNetwork/QNetworkRequest>
@@ -91,15 +91,17 @@ void gpclient::helper::openMessageBox(const QString &message, const QString& inf
 
 void gpclient::helper::moveCenter(QWidget *widget)
 {
-    QDesktopWidget *desktop = QApplication::desktop();
+    QGuiApplication* app = (QGuiApplication*)QGuiApplication::instance();
+    QScreen* screen = app->primaryScreen();
+    QSize screenSize = screen->size();
 
     int screenWidth, width;
     int screenHeight, height;
     int x, y;
     QSize windowSize;
 
-    screenWidth = desktop->width();
-    screenHeight = desktop->height();
+    screenWidth = screenSize.width();
+    screenHeight = screenSize.height();
 
     windowSize = widget->size();
     width = windowSize.width();

@@ -2,7 +2,6 @@
 
 #include "gpservice.h"
 #include "singleapplication.h"
-#include "sigwatch.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,12 +15,6 @@ int main(int argc, char *argv[])
 
     GPService service;
 
-    UnixSignalWatcher sigwatch;
-    sigwatch.watchForSignal(SIGINT);
-    sigwatch.watchForSignal(SIGTERM);
-    sigwatch.watchForSignal(SIGQUIT);
-    sigwatch.watchForSignal(SIGHUP);
-    QObject::connect(&sigwatch, &UnixSignalWatcher::unixSignal, &service, &GPService::quit);
 
     return app.exec();
 }

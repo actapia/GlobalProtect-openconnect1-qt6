@@ -11,7 +11,6 @@
 #include "vpn_dbus.h"
 #include "vpn_json.h"
 #include "enhancedwebview.h"
-#include "sigwatch.h"
 #include "version.h"
 
 #define QT_AUTO_SCREEN_SCALE_FACTOR "QT_AUTO_SCREEN_SCALE_FACTOR"
@@ -68,13 +67,6 @@ int main(int argc, char *argv[])
     }
 
     QObject::connect(&app, &SingleApplication::instanceStarted, &w, &GPClient::activate);
-
-    UnixSignalWatcher sigwatch;
-    sigwatch.watchForSignal(SIGINT);
-    sigwatch.watchForSignal(SIGTERM);
-    sigwatch.watchForSignal(SIGQUIT);
-    sigwatch.watchForSignal(SIGHUP);
-    QObject::connect(&sigwatch, &UnixSignalWatcher::unixSignal, &w, &GPClient::quit);
 
     if (parser.isSet("json")) {
         QObject::connect(static_cast<VpnJson*>(vpn), &VpnJson::connected, &w, &GPClient::quit);

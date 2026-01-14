@@ -20,19 +20,18 @@ message(STATUS "CMAKE_INSTALL_PREFIX was set to: ${CMAKE_INSTALL_PREFIX}")
 
 configure_file(version.h.in version.h)
 
-find_package(Qt5 REQUIRED COMPONENTS
+find_package(Qt6 REQUIRED COMPONENTS
     Core
     Widgets
     Network
     WebSockets
-    WebEngine
+    WebEngineQuick
     WebEngineWidgets
     DBus
 )
 
-find_package(Qt5Keychain REQUIRED)
+find_package(Qt6Keychain REQUIRED)
 
-add_subdirectory(3rdparty/qt-unix-signals)
 add_subdirectory(3rdparty/inih)
 add_subdirectory(GPService)
 add_subdirectory(GPClient)
